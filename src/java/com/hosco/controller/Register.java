@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping(value = "/register")
 public class Register {
     
+    private final DatabaseConnection db = new DatabaseConnection();
+    
     @RequestMapping(value = "/register",method = RequestMethod.GET)
     public String register(ModelMap m)
     {
@@ -33,7 +35,7 @@ public class Register {
     @RequestMapping(value = "/registerUser",method = RequestMethod.POST)
     public String registerUser(@ModelAttribute(value = "user") User user,ModelMap m)
     {
-        m.put("user", user);
+        db.insertUser(user);
         return "success";
     }
     

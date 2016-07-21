@@ -15,11 +15,11 @@ import org.hibernate.*;
  */
 public class DatabaseConnection {
     
-    private SessionFactory sessionFactory;
+    private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
     
     public List<User> getAllUser()
     {   
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.openSession();
         List<User> users = null;
         try{
             users = session.createQuery("select * from user").list();
@@ -28,9 +28,27 @@ public class DatabaseConnection {
         }
         finally {
             session.close();
-        }
-        
+        }        
         return users;
+    }
+    
+    public void insertUser(User user)
+    {
+        Session session = sessionFactory.openSession();
+        Transaction transaction;
+        transaction = session.beginTransaction();
+        boolean status = false;
+        try{
+            session.save(user);
+            session.getTransaction().commit();          
+            
+        }catch(Exception e){
+            transaction.rollback();
+            e.printStackTrace();
+        }
+        finally {
+            session.close();
+        }
     }
     
 }
