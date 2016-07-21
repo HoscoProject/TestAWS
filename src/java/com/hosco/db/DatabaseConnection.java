@@ -18,8 +18,8 @@ public class DatabaseConnection {
     private SessionFactory sessionFactory;
     
     public List<User> getAllUser()
-    {
-        Session session = sessionFactory.openSession();
+    {   
+        Session session = HibernateUtil.getSessionFactory().openSession();
         List<User> users = null;
         try{
             users = session.createQuery("select * from user").list();
