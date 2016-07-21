@@ -8,13 +8,35 @@
         <title>User Management</title>
     </head>
     <body>
-        <h3>Persons List</h3>
+        
+        <form:form method ="post" commandName ="customer" action="registerUser.html">
+        <table>
+            <tr>
+                <td>ID</td>
+                <td><form:input path="id"/></td>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td><form:password  path="name"/></td>
+            </tr>
+            <tr>
+                <td>Age</td>
+                <td><form:input path="age"/></td>
+            </tr>
+             <tr>
+                 <td><input type="submit" value="Add"></td>                
+            </tr>
+        </table>                        
+        
+    </form:form>
+        
+        <h3>Customers List</h3>
         <c:if test="${!empty listUser}">
-                <table class="tg">
+                <table  border="1">
                 <tr>
-                        <th width="80">Person ID</th>
-                        <th width="120">Person Name</th>
-                        <th width="120">Person Country</th>
+                        <th width="80">ID</th>
+                        <th width="120">Name</th>
+                        <th width="120">Age</th>
                         <th width="60">Edit</th>
                         <th width="60">Delete</th>
                 </tr>
@@ -22,9 +44,9 @@
                         <tr>
                                 <td>${user.id}</td>
                                 <td>${user.name}</td>
-                                <td>${user.country}</td>
-                                <td><a href="<c:url value='/edit/${user.username}' />" >Edit</a></td>
-                                <td><a href="<c:url value='/remove/${user.username}' />" >Delete</a></td>
+                                <td>${user.age}</td>
+                                <td><a href="user_management.jsp" >Edit</a></td>
+                                <td><a href="<c:url value='/remove/${user.id}' />" >Delete</a></td>
                         </tr>
                 </c:forEach>
                 </table>

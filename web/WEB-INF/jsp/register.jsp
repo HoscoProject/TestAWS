@@ -10,6 +10,7 @@
     </head>
 
     <body>
+        <h1 color="red">${result}</h1>
     <form:form method ="post" commandName ="user" action="registerUser.html">
         <table>
             <tr>

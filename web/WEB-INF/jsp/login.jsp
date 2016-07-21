@@ -10,7 +10,8 @@
     </head>
 
     <body>
-    <form:form method ="post" commandName ="userLogin" action="registerUser.html">
+        <h1>${result}</h1>
+    <form:form method ="post" commandName ="userLogin" action="checkLogin.html">
         <table>
             <tr>
                 <td>Username</td>
