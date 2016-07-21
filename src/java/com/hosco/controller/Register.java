@@ -6,6 +6,7 @@
 package com.hosco.controller;
 
 import com.hosco.db.DatabaseConnection;
+import com.hosco.db.DatabaseCreation;
 import com.hosco.model.Customer;
 import com.hosco.model.User;
 import java.util.ArrayList;
@@ -30,6 +31,8 @@ public class Register {
     @RequestMapping(value = "/register",method = RequestMethod.GET)
     public String register(ModelMap m)
     {              
+        DatabaseCreation db1 = new DatabaseCreation();
+        db1.create("mtviet");
         m.addAttribute("user",new User());
         return "register";
     }

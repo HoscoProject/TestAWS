@@ -45,7 +45,7 @@
                                 <td>${user.id}</td>
                                 <td>${user.name}</td>
                                 <td>${user.age}</td>
-                                <td><a href="user_management.jsp" >Edit</a></td>
+                                <td><a href="/manager/edit/234" >Edit</a></td>
                                 <td><a href="<c:url value='/remove/${user.id}' />" >Delete</a></td>
                         </tr>
                 </c:forEach>

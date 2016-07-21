@@ -5,6 +5,7 @@
  */
 package com.hosco.db;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
@@ -15,15 +16,19 @@ import java.sql.Statement;
  */
 public class DatabaseCreation {
 
-    private static String jdbcDriver = "com.mysql.jdbc.Driver";
+    private  String jdbcDriver = "com.mysql.jdbc.Driver";
 
-    public static void create(String dbName) {
+    public  void create(String dbName) {
         String mysql = "C:\\Program Files\\MySQL\\MySQL Server 5.7\\bin\\mysql";
         String dbUser = "root";
         String dbPass = "15021993";
-        String restorePath = "/SqlFile/myfile.sql";
+
+        File file = new File("myfile.sql");
+        String dirPath = file.getAbsoluteFile().getParentFile().getAbsolutePath() + "/SqlFile/myfile.sql";
+        System.out.println(dirPath);
+
         createDB(dbName);
-        String[] executeCmd = new String[]{mysql, "--user=" + dbUser, "--password=" + dbPass, dbName, "-e", "source " + restorePath};
+        String[] executeCmd = new String[]{mysql, "--user=" + dbUser, "--password=" + dbPass, dbName, "-e", "source " + dirPath};
         //String[] executeCmd = new String[]{mysql, "--user=" + dbUser, "--password=" + dbPass, dbName,"-e", " source "+restorePath};  
         Process runtimeProcess;
         try {
@@ -39,7 +44,7 @@ public class DatabaseCreation {
         }
     }
 
-    public static void createDB(String dbName) {
+    public  void createDB(String dbName) {
         try {
             Class.forName(jdbcDriver);
             Connection conn = DriverManager.getConnection("jdbc:mysql://192.168.0.8:3306/?user=root&password=15021993");
