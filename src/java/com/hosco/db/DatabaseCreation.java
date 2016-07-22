@@ -19,30 +19,8 @@ public class DatabaseCreation {
     private  String jdbcDriver = "com.mysql.jdbc.Driver";
 
     public  void create(String dbName) {
-        String mysql = "C:\\Program Files\\MySQL\\MySQL Server 5.7\\bin\\mysql";
-        String dbUser = "root";
-        String dbPass = "15021993";
-
-        File currentDirFile = new File("");
-        String helper = currentDirFile.getAbsolutePath();
-        //String dirPath = file.getAbsoluteFile().getParentFile().getAbsolutePath() + "/SqlFile/myfile.sql";
-        System.out.println(System.getProperty("user.dir"));
-
-        //createDB(dbName);
-        String[] executeCmd = new String[]{mysql, "--user=" + dbUser, "--password=" + dbPass, dbName, "-e", "source " + "/SqlFile/myfile.sql"};
-        //String[] executeCmd = new String[]{mysql, "--user=" + dbUser, "--password=" + dbPass, dbName,"-e", " source "+restorePath};  
-        Process runtimeProcess;
-        try {
-            runtimeProcess = Runtime.getRuntime().exec(executeCmd);
-            int processComplete = runtimeProcess.waitFor();
-            if (processComplete == 0) {
-                System.out.println("Backup restored successfully");
-            } else {
-                System.out.println("Loi cmnr");
-            }
-        } catch (Exception ex) {
-            System.out.println(ex.toString());
-        }
+        createDB("gandalf");
+        CreateDBScript("gandalf");
     }
 
     public  void createDB(String dbName) {
@@ -51,10 +29,23 @@ public class DatabaseCreation {
             Connection conn = DriverManager.getConnection("jdbc:mysql://192.168.0.8:3306/?user=root&password=15021993");
             Statement s = conn.createStatement();
             int Result = s.executeUpdate("CREATE DATABASE " + dbName);
-            System.out.println(Result);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+    }
+    
+    public void CreateDBScript(String dbName){
+        String scripts="CREATE TABLE customer (id varchar(50),name varchar(50),age int(11),PRIMARY KEY (id)) ENGINE=InnoDB DEFAULT CHARSET=utf8;" ;
+        
+        try {
+            Class.forName(jdbcDriver);
+            Connection conn = DriverManager.getConnection("jdbc:mysql://192.168.0.8:3306/"+dbName+"?user=root&password=15021993");
+            Statement s = conn.createStatement();
+            int Result = s.executeUpdate(scripts);
+            System.out.println(Result);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
