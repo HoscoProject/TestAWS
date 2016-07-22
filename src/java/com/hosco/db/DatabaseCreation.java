@@ -23,12 +23,13 @@ public class DatabaseCreation {
         String dbUser = "root";
         String dbPass = "15021993";
 
-        File file = new File("myfile.sql");
-        String dirPath = file.getAbsoluteFile().getParentFile().getAbsolutePath() + "/SqlFile/myfile.sql";
-        System.out.println(dirPath);
+        File currentDirFile = new File("");
+        String helper = currentDirFile.getAbsolutePath();
+        //String dirPath = file.getAbsoluteFile().getParentFile().getAbsolutePath() + "/SqlFile/myfile.sql";
+        System.out.println(System.getProperty("user.dir"));
 
-        createDB(dbName);
-        String[] executeCmd = new String[]{mysql, "--user=" + dbUser, "--password=" + dbPass, dbName, "-e", "source " + dirPath};
+        //createDB(dbName);
+        String[] executeCmd = new String[]{mysql, "--user=" + dbUser, "--password=" + dbPass, dbName, "-e", "source " + "/SqlFile/myfile.sql"};
         //String[] executeCmd = new String[]{mysql, "--user=" + dbUser, "--password=" + dbPass, dbName,"-e", " source "+restorePath};  
         Process runtimeProcess;
         try {
